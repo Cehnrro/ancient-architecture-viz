@@ -1,0 +1,7 @@
+id,workId,targetId,relationType,evidenceRef,evidenceTitle,evidenceUrl
+wb1,w9,b16,PRACTICE,SRC018,计成,https://zh.wikipedia.org/wiki/计成
+wb2,w10,b16,PRACTICE,SRC023,文震亨,https://zh.wikipedia.org/wiki/文震亨
+wb3,w11,b15,PRACTICE,SRC009,闲情偶寄,https://zh.wikipedia.org/wiki/闲情偶寄
+wb4,w18,scraped_10,PRACTICE,SRC021,郭守敬,https://zh.wikipedia.org/wiki/郭守敬
+wb5,w50,b6,PRACTICE,SRC069,李淳风,https://zh.wikipedia.org/wiki/李淳风
+wb6,w56,b6,PRACTICE,SRC070,一行,https://zh.wikipedia.org/wiki/一行

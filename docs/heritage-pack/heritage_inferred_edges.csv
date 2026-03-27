@@ -1,0 +1,5 @@
+﻿source,target,relationType,evidenceRef,isInferred
+c8,c9,school,SRC012,True
+c16,c18,school,SRC009,True
+c19,c20,school,SRC024,True
+c39,c40,school,SRC063,True

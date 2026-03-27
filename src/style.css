@@ -1,0 +1,96 @@
+/* 引入中文衬线字体 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 全局基础样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-ink: #0d1117;
+  --color-ink-light: #161b22;
+  --color-ink-mid: #21262d;
+  --color-gold: #c9a84c;
+  --color-gold-light: #e8c96d;
+  --color-gold-dim: #7a6030;
+  --color-cyan: #00d4ff;
+  --color-cyan-dim: #0a4a5a;
+  --color-red: #8b1a1a;
+  --color-jade: #2d6a4f;
+  --color-text: #e6d5b8;
+  --color-text-dim: #8b8680;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-text);
+  font-family: 'Noto Serif SC', 'SimSun', serif;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-dim);
+  border-radius: 2px;
+}
+
+/* 国风装饰线 */
+.divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+/* 发光文字 */
+.text-glow-gold {
+  text-shadow: 0 0 20px rgba(201, 168, 76, 0.6);
+}
+.text-glow-cyan {
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+}
+
+/* 卡片基础样式 */
+.card-ancient {
+  background: var(--color-ink-light);
+  border: 1px solid var(--color-gold-dim);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+.card-ancient:hover {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+}
+
+/* 标签样式 */
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 12px;
+  border: 1px solid;
+}
+.tag-皇宫 { color: #e8c96d; border-color: #7a6030; background: rgba(201,168,76,0.1); }
+.tag-官府 { color: #00d4ff; border-color: #0a4a5a; background: rgba(0,212,255,0.1); }
+.tag-民居 { color: #81c784; border-color: #2d6a4f; background: rgba(45,106,79,0.1); }
+.tag-桥梁 { color: #ff8a65; border-color: #6d3a2a; background: rgba(139,58,26,0.1); }
