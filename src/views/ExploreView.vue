@@ -78,17 +78,30 @@ const sameProvinceBuildings = computed(() => {
 
 function parseDesc(desc) {
   if (!desc) return null
+  // 支持中文分号分隔的 "标题：内容；" 格式
   const parts = {}
-  const segments = desc.split('|')
+  const segments = desc.split('；').filter(s => s.trim())
   segments.forEach(seg => {
-    const idx = seg.indexOf(':')
+    const idx = seg.indexOf('：')
     if (idx > -1) {
       const key = seg.slice(0, idx).trim()
       const val = seg.slice(idx + 1).trim()
       if (key && val) parts[key] = val
     }
   })
-  return Object.keys(parts).length > 1 ? parts : null
+  if (Object.keys(parts).length > 1) return parts
+  // 兼容英文冒号竖线格式
+  const parts2 = {}
+  const segs2 = desc.split('|')
+  segs2.forEach(seg => {
+    const idx = seg.indexOf(':')
+    if (idx > -1) {
+      const key = seg.slice(0, idx).trim()
+      const val = seg.slice(idx + 1).trim()
+      if (key && val) parts2[key] = val
+    }
+  })
+  return Object.keys(parts2).length > 1 ? parts2 : null
 }
 
 const descSections = computed(() => {
@@ -422,7 +435,7 @@ function goToDetail(id) {
 
     <div class="period-timeline">
       <button
-        v-for="p in [{ id: 'all', name: '全部' }, ...periods]"
+        v-for="p in [...periods, { id: 'all', name: '总览' }]"
         :key="p.id || p.name"
         class="period-btn"
         :class="{ active: activePeriod === (p.id === 'all' ? 'all' : p.name) }"
@@ -512,22 +525,22 @@ function goToDetail(id) {
 }
 
 .map-area {
-  flex: 7;
+  flex: 2;
   position: relative;
   overflow: hidden;
 }
 
 .sidebar {
-  flex: 3;
-  min-width: 280px;
-  max-width: 360px;
+  flex: 1;
+  min-width: 380px;
+  max-width: 520px;
   background: linear-gradient(180deg, rgba(12,16,28,0.98) 0%, rgba(10,14,26,0.98) 100%);
   border-left: 1px solid #c9a84c33;
   overflow-y: auto;
-  padding: 16px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   box-shadow: -4px 0 24px rgba(0,0,0,0.3);
 }
 
@@ -539,8 +552,8 @@ function goToDetail(id) {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 10px 24px;
+  gap: 8px;
+  padding: 12px 24px;
   background: rgba(10,14,26,0.98);
   border-top: 1px solid #c9a84c44;
   flex-shrink: 0;
@@ -548,16 +561,16 @@ function goToDetail(id) {
 }
 
 .period-btn {
-  padding: 6px 18px;
+  padding: 8px 28px;
   border: 1px solid #c9a84c33;
   background: transparent;
   color: #8b8680;
   font-family: 'Noto Serif SC', serif;
-  font-size: 13px;
+  font-size: 15px;
   cursor: pointer;
   border-radius: 2px;
   transition: all 0.25s;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   position: relative;
   overflow: hidden;
 }
@@ -581,22 +594,22 @@ function goToDetail(id) {
 
 .sidebar-period {
   text-align: center;
-  padding: 12px 0 8px;
+  padding: 14px 0 10px;
   border-bottom: 1px solid #c9a84c22;
   margin-bottom: 4px;
 }
 .period-name-label {
-  font-size: 22px;
+  font-size: 26px;
   color: #e8c96d;
-  letter-spacing: 4px;
-  margin-bottom: 4px;
+  letter-spacing: 5px;
+  margin-bottom: 6px;
   text-shadow: 0 0 16px #c9a84c77;
 }
-.period-sub { font-size: 12px; color: #8b8680; margin-bottom: 6px; letter-spacing: 1px; }
+.period-sub { font-size: 14px; color: #8b8680; margin-bottom: 8px; letter-spacing: 1px; }
 .building-count {
-  font-size: 13px; color: #e6d5b8aa;
+  font-size: 15px; color: #e6d5b8aa;
   display: inline-block;
-  padding: 2px 10px;
+  padding: 3px 14px;
   border: 1px solid #c9a84c22;
   border-radius: 10px;
   background: rgba(201,168,76,0.04);
@@ -633,17 +646,17 @@ function goToDetail(id) {
 }
 
 .overview-section { margin-bottom: 8px; }
-.overview-title { font-size: 12px; color: #c9a84c99; margin-bottom: 4px; letter-spacing: 1px; }
-.overview-chart { width: 100%; height: 140px; }
-.overview-chart-tall { width: 100%; height: 220px; }
-.overview-chart-stack { width: 100%; height: 160px; }
+.overview-title { font-size: 14px; color: #c9a84c99; margin-bottom: 6px; letter-spacing: 1px; }
+.overview-chart { width: 100%; height: 180px; }
+.overview-chart-tall { width: 100%; height: 280px; }
+.overview-chart-stack { width: 100%; height: 200px; }
 
 .ruins-pies {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
-.ruins-pie-item { width: 100%; height: 100px; }
+.ruins-pie-item { width: 100%; height: 130px; }
 
 .type-stats { display: flex; flex-direction: column; gap: 6px; }
 .type-stat-item {
@@ -671,17 +684,18 @@ function goToDetail(id) {
 .type-stat-item:hover { border-color: #c9a84c55; background: rgba(201,168,76,0.06); }
 .type-stat-item:hover::before { opacity: 1; }
 .type-stat-item.type-hidden { opacity: 0.35; }
-.type-count { margin-left: auto; font-size: 14px; color: #e6d5b8; font-weight: 600; }
-.type-toggle-hint { font-size: 11px; color: #8b8680; }
+.type-count { margin-left: auto; font-size: 16px; color: #e6d5b8; font-weight: 600; }
+.type-toggle-hint { font-size: 13px; color: #8b8680; }
 
 .pie-wrap { }
-.pie-title { font-size: 12px; color: #c9a84c99; margin-bottom: 4px; letter-spacing: 1px; }
-.pie-chart { width: 100%; height: 160px; }
+.pie-title { font-size: 14px; color: #c9a84c99; margin-bottom: 6px; letter-spacing: 1px; }
+.pie-chart { width: 100%; height: 200px; }
+
+.hint { font-size: 14px; color: #8b8680; text-align: center; letter-spacing: 1px; }
 
 .divider-gold { height: 1px; background: linear-gradient(90deg, transparent, #c9a84c44, transparent); }
 .my-4 { margin: 8px 0; }
 .my-3 { margin: 6px 0; }
-.hint { font-size: 12px; color: #8b8680; text-align: center; letter-spacing: 1px; }
 
 .back-to-map {
   background: transparent;
@@ -696,28 +710,28 @@ function goToDetail(id) {
 }
 .back-to-map:hover { background: rgba(201,168,76,0.1); border-color: #c9a84c; }
 
-.building-card { display: flex; flex-direction: column; gap: 8px; }
-.bc-type-row { display: flex; align-items: center; gap: 8px; }
-.bc-dynasty { font-size: 12px; color: #8b8680; }
-.bc-province { font-size: 12px; color: #8b8680; }
-.bc-name { font-size: 24px; letter-spacing: 4px; color: #e8c96d; text-shadow: 0 0 20px #c9a84caa, 0 0 40px #c9a84c44; line-height: 1.3; }
+.building-card { display: flex; flex-direction: column; gap: 10px; }
+.bc-type-row { display: flex; align-items: center; gap: 10px; }
+.bc-dynasty { font-size: 14px; color: #8b8680; }
+.bc-province { font-size: 14px; color: #8b8680; }
+.bc-name { font-size: 28px; letter-spacing: 4px; color: #e8c96d; text-shadow: 0 0 20px #c9a84caa, 0 0 40px #c9a84c44; line-height: 1.3; }
 .bc-image-wrap { width: 100%; border-radius: 2px; overflow: hidden; border: 1px solid #c9a84c44; box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.1); }
-.bc-image { width: 100%; height: 180px; object-fit: cover; display: block; transition: transform 0.4s; }
+.bc-image { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform 0.4s; }
 .bc-image-wrap:hover .bc-image { transform: scale(1.03); }
-.bc-tagline { font-size: 12px; color: #8b8680; line-height: 1.7; font-style: italic; padding: 6px 10px; border-left: 2px solid #c9a84c44; background: rgba(201,168,76,0.03); }
-.bc-desc { font-size: 13px; color: #e6d5b8aa; line-height: 1.8; }
+.bc-tagline { font-size: 14px; color: #8b8680; line-height: 1.8; font-style: italic; padding: 8px 12px; border-left: 2px solid #c9a84c44; background: rgba(201,168,76,0.03); }
+.bc-desc { font-size: 15px; color: #e6d5b8aa; line-height: 1.9; }
 
-.desc-sections { display: flex; flex-direction: column; gap: 8px; }
+.desc-sections { display: flex; flex-direction: column; gap: 12px; }
 .desc-section { }
-.desc-section-label { font-size: 12px; color: #c9a84c; margin-bottom: 3px; display: flex; align-items: center; gap: 4px; }
-.desc-label-icon { font-size: 8px; }
-.desc-section-body { font-size: 12px; color: #e6d5b8aa; line-height: 1.7; }
+.desc-section-label { font-size: 14px; color: #c9a84c; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; font-weight: 600; letter-spacing: 1px; }
+.desc-label-icon { font-size: 9px; }
+.desc-section-body { font-size: 14px; color: #e6d5b8cc; line-height: 1.9; padding-left: 4px; }
 
 .bc-features { }
-.bc-features-title { font-size: 12px; color: #c9a84c99; margin-bottom: 6px; letter-spacing: 1px; }
+.bc-features-title { font-size: 14px; color: #c9a84c99; margin-bottom: 8px; letter-spacing: 1px; }
 .bc-feature-item {
-  font-size: 12px; color: #e6d5b8aa; padding: 4px 8px;
-  border-left: 2px solid #c9a84c44; margin-bottom: 4px;
+  font-size: 14px; color: #e6d5b8aa; padding: 6px 10px;
+  border-left: 2px solid #c9a84c44; margin-bottom: 6px; line-height: 1.7;
 }
 
 .detail-btn {
@@ -739,36 +753,36 @@ function goToDetail(id) {
 }
 
 .same-province { }
-.sp-title { font-size: 12px; color: #c9a84c99; margin-bottom: 6px; letter-spacing: 1px; }
+.sp-title { font-size: 14px; color: #c9a84c99; margin-bottom: 8px; letter-spacing: 1px; }
 .sp-item {
-  display: flex; align-items: center; gap: 6px;
-  padding: 5px 8px; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 10px; cursor: pointer;
   border: 1px solid transparent; border-radius: 2px;
-  transition: all 0.2s; font-size: 12px; color: #e6d5b8aa;
+  transition: all 0.2s; font-size: 14px; color: #e6d5b8aa;
 }
 .sp-item:hover { border-color: #c9a84c33; background: rgba(201,168,76,0.05); color: #e6d5b8; }
-.sp-dynasty { font-size: 11px; color: #8b8680; margin-left: auto; }
+.sp-dynasty { font-size: 12px; color: #8b8680; margin-left: auto; }
 
 .concentration-card {
   position: absolute; bottom: 16px; left: 16px; z-index: 500;
   background: rgba(10,14,26,0.95);
   border: 1px solid #c9a84c55;
-  border-radius: 4px; padding: 14px 16px;
-  min-width: 170px; max-width: 210px;
+  border-radius: 4px; padding: 18px 20px;
+  min-width: 220px; max-width: 280px;
   backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.08);
 }
-.cc-label { font-size: 11px; color: #8b8680; letter-spacing: 2px; margin-bottom: 6px; text-transform: uppercase; }
-.cc-province { font-size: 22px; color: #e8c96d; letter-spacing: 3px; font-weight: 700; text-shadow: 0 0 16px #c9a84c88; }
-.cc-count { font-size: 12px; color: #e6d5b8aa; margin-bottom: 8px; }
-.cc-map { width: 100%; height: 100px; }
-.cc-divider { height: 1px; background: linear-gradient(90deg, transparent, #c9a84c44, transparent); margin: 8px 0; }
-.cc-list { display: flex; flex-direction: column; gap: 4px; }
-.cc-item { font-size: 12px; color: #e6d5b8aa; display: flex; align-items: center; gap: 4px; }
+.cc-label { font-size: 13px; color: #8b8680; letter-spacing: 2px; margin-bottom: 8px; }
+.cc-province { font-size: 28px; color: #e8c96d; letter-spacing: 4px; font-weight: 700; text-shadow: 0 0 16px #c9a84c88; }
+.cc-count { font-size: 14px; color: #e6d5b8aa; margin-bottom: 10px; }
+.cc-map { width: 100%; height: 130px; }
+.cc-divider { height: 1px; background: linear-gradient(90deg, transparent, #c9a84c44, transparent); margin: 10px 0; }
+.cc-list { display: flex; flex-direction: column; gap: 6px; }
+.cc-item { font-size: 14px; color: #e6d5b8aa; display: flex; align-items: center; gap: 6px; }
 
 .tag {
-  display: inline-block; padding: 1px 6px; border-radius: 2px;
-  font-size: 11px; font-family: 'Noto Serif SC', serif;
+  display: inline-block; padding: 2px 8px; border-radius: 2px;
+  font-size: 13px; font-family: 'Noto Serif SC', serif;
 }
 .tag-皇宫 { background: rgba(232,201,109,0.15); color: #e8c96d; border: 1px solid #e8c96d44; }
 .tag-官府 { background: rgba(0,212,255,0.1); color: #00d4ff; border: 1px solid #00d4ff44; }
