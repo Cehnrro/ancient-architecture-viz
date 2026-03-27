@@ -124,18 +124,26 @@ function initTimeline() {
       textStyle: { color: '#e6d5b8', fontSize: 13, fontFamily: 'Noto Serif SC' },
       formatter: p => p.data?.buildingName || ''
     },
-    grid: { left: 40, right: 40, top: 20, bottom: 48 },
+    grid: { left: 40, right: 40, top: 40, bottom: 20 },
     xAxis: {
       type: 'category',
       data: PERIODS,
+      position: 'top',
       axisLabel: {
-        fontSize: 14,
+        fontSize: 13,
         fontFamily: 'Noto Serif SC',
         rich: {
-          cur: { color: TYPE_COLOR[curType], fontSize: 15, fontFamily: 'Noto Serif SC', fontWeight: 'bold' },
-          dim: { color: '#8b8680', fontSize: 13, fontFamily: 'Noto Serif SC' }
+          cur: { color: TYPE_COLOR[curType], fontSize: 14, fontFamily: 'Noto Serif SC', fontWeight: 'bold', lineHeight: 22 },
+          curYear: { color: TYPE_COLOR[curType], fontSize: 10, fontFamily: 'Noto Serif SC', lineHeight: 16, opacity: 0.8 },
+          dim: { color: '#8b8680', fontSize: 13, fontFamily: 'Noto Serif SC', lineHeight: 22 },
+          dimYear: { color: '#8b8680', fontSize: 10, fontFamily: 'Noto Serif SC', lineHeight: 16, opacity: 0.6 }
         },
-        formatter: val => val === curPeriod ? `{cur|${val}}` : `{dim|${val}}`
+        formatter: val => {
+          const year = PERIOD_YEARS[val] || ''
+          return val === curPeriod
+            ? `{cur|${val}}\n{curYear|${year}}`
+            : `{dim|${val}}\n{dimYear|${year}}`
+        }
       },
       axisLine: { lineStyle: { color: '#c9a84c44' } },
       axisTick: { show: false },
@@ -635,11 +643,7 @@ onMounted(() => nextTick(() => { initTimeline(); initComparison() }))
   padding: 24px;
   margin-bottom: 16px;
 }
-.timeline-periods {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 8px;
-}
+.timeline-periods { display: none; }
 .timeline-period {
   display: flex;
   flex-direction: column;

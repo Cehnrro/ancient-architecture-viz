@@ -464,8 +464,8 @@ function goToDetail(id) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 32px;
-  height: 56px;
+  padding: 0 60px;
+  height: 60px;
   background: rgba(10,14,26,0.98);
   border-bottom: 1px solid #c9a84c55;
   flex-shrink: 0;
@@ -474,7 +474,7 @@ function goToDetail(id) {
 }
 
 .nav-title {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   letter-spacing: 6px;
   color: #e8c96d;
@@ -493,13 +493,13 @@ function goToDetail(id) {
 
 .nav-links {
   display: flex;
-  gap: 32px;
+  gap: 40px;
 }
 
 .nav-links a {
   color: #8b8680;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 2px;
   transition: all 0.3s;
   position: relative;
