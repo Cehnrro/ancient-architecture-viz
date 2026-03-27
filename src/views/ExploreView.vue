@@ -264,13 +264,17 @@ function initRuinsPieCharts() {
       backgroundColor: 'transparent',
       tooltip: { trigger: 'item', formatter: '{b}: {c}座 ({d}%)', ...TOOLTIP_STYLE },
       series: [{
-        type: 'pie', radius: ['40%', '68%'], center: ['50%', '50%'],
+        type: 'pie', radius: ['40%', '68%'], center: ['50%', '55%'],
         data: [
           { name: '现存', value: existing, itemStyle: { color: '#c9a84c' } },
           { name: '遗址/已毁', value: ruins, itemStyle: { color: '#00d4ff88' } }
         ],
-        label: { color: '#c9a84c', fontSize: 12, fontFamily: 'Noto Serif SC' },
-        labelLine: { lineStyle: { color: '#c9a84c44' } }
+        label: {
+          color: '#c9a84c', fontSize: 11, fontFamily: 'Noto Serif SC',
+          formatter: '{b}\n{d}%',
+          overflow: 'break'
+        },
+        labelLine: { length: 6, length2: 6, lineStyle: { color: '#c9a84c44' } }
       }]
     })
   })
@@ -379,7 +383,7 @@ function goToDetail(id) {
               </div>
             </div>
             <div class="pie-wrap">
-              <div class="pie-title">着作分布与类型结构</div>
+              <div class="pie-title">建筑分布与类型结构</div>
               <div ref="pieChart" class="pie-chart" />
             </div>
             <div class="divider-gold my-4" />
@@ -439,7 +443,7 @@ function goToDetail(id) {
         :key="p.id || p.name"
         class="period-btn"
         :class="{ active: activePeriod === (p.id === 'all' ? 'all' : p.name) }"
-        @click="activePeriod = p.id === 'all' ? 'all' : p.name; selectedBuilding = null"
+        @click="activePeriod = p.id === 'all' ? 'all' : p.name; selectedBuilding = null; if(p.id !== 'all') showOverview = false"
       >{{ p.name }}</button>
     </div>
   </div>
@@ -628,7 +632,6 @@ function goToDetail(id) {
   transition: all 0.25s;
   letter-spacing: 2px;
   position: relative;
-  overflow: hidden;
 }
 .overview-btn::after {
   content: '';
