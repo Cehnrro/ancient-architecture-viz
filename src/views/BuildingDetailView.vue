@@ -35,6 +35,13 @@ const PERIOD_YEARS = {
   '明清': '1368-1912年'
 }
 const TYPE_COLOR = { '皇宫': '#e8c96d', '官府': '#00d4ff', '民居': '#81c784', '桥梁': '#ff8a65' }
+const DETAIL_TOOLTIP_STYLE = {
+  backgroundColor: 'rgba(19, 24, 33, 0.96)',
+  borderWidth: 1,
+  padding: [10, 14],
+  textStyle: { color: '#e6d5b8', fontSize: 13, fontFamily: 'Noto Serif SC' },
+  extraCssText: 'box-shadow:0 10px 24px rgba(0,0,0,0.32);'
+}
 
 const timelineRef = ref(null)
 let timelineChart = null
@@ -119,10 +126,9 @@ function initTimeline() {
     backgroundColor: 'transparent',
     tooltip: {
       trigger: 'item',
-      backgroundColor: '#161b22',
       borderColor: '#c9a84c44',
-      textStyle: { color: '#e6d5b8', fontSize: 13, fontFamily: 'Noto Serif SC' },
-      formatter: p => p.data?.buildingName || ''
+      formatter: p => p.data?.buildingName || '',
+      ...DETAIL_TOOLTIP_STYLE
     },
     grid: { left: 40, right: 40, top: 40, bottom: 20 },
     xAxis: {
@@ -190,9 +196,9 @@ function initComparison() {
       backgroundColor: 'transparent',
       tooltip: {
         trigger: 'axis', axisPointer: { type: 'none' },
-        backgroundColor: '#161b22', borderColor: color + '44',
-        textStyle: { color: '#e6d5b8', fontSize: 13 },
-        formatter: p => `${p[0].name}：${p[0].value} ${cmp.unit}`
+        borderColor: color + '44',
+        formatter: p => `${p[0].name}：${p[0].value} ${cmp.unit}`,
+        ...DETAIL_TOOLTIP_STYLE
       },
       grid: { left: 120, right: 60, top: 16, bottom: 16, containLabel: false },
       xAxis: { type: 'value', show: false },
@@ -238,9 +244,9 @@ function initComparison() {
       backgroundColor: 'transparent',
       tooltip: {
         trigger: 'item',
-        backgroundColor: '#161b22', borderColor: color + '44',
-        textStyle: { color: '#e6d5b8', fontSize: 13 },
-        formatter: p => `${p.data.name}：${p.data.actualValue} ${cmp.unit}`
+        borderColor: color + '44',
+        formatter: p => `${p.data.name}：${p.data.actualValue} ${cmp.unit}`,
+        ...DETAIL_TOOLTIP_STYLE
       },
       grid: { left: 40, right: 40, top: 60, bottom: 48 },
       xAxis: {
@@ -284,8 +290,7 @@ function initComparison() {
     const radarColors = ['#e8c96d', '#81c784', '#ff8a65', '#00d4ff', '#c792ea', '#f48fb1', '#80cbc4', '#ffcc80']
     comparisonChart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'item', backgroundColor: '#161b22', borderColor: color + '44',
-        textStyle: { color: '#e6d5b8', fontSize: 12 } },
+      tooltip: { trigger: 'item', borderColor: color + '44', ...DETAIL_TOOLTIP_STYLE },
       legend: {
         data: peers.map(p => p.name), bottom: 0,
         textStyle: { color: '#8b8680', fontSize: 14, fontFamily: 'Noto Serif SC' },
@@ -320,9 +325,9 @@ function initComparison() {
       backgroundColor: 'transparent',
       tooltip: {
         trigger: 'axis', axisPointer: { type: 'none' },
-        backgroundColor: '#161b22', borderColor: color + '44',
-        textStyle: { color: '#e6d5b8', fontSize: 13 },
-        formatter: p => `${p[0].name}：${p[0].value} ${cmp.unit}`
+        borderColor: color + '44',
+        formatter: p => `${p[0].name}：${p[0].value} ${cmp.unit}`,
+        ...DETAIL_TOOLTIP_STYLE
       },
       grid: { left: 130, right: 80, top: 16, bottom: 16, containLabel: false },
       xAxis: { type: 'value', show: false },
@@ -508,7 +513,7 @@ onMounted(() => nextTick(() => { initTimeline(); initComparison() }))
 .hero {
   position: relative;
   width: 100%;
-  height: 480px;
+  height: 460px;
   background: var(--color-ink-light);
   background-size: cover;
   background-position: center;
@@ -519,15 +524,17 @@ onMounted(() => nextTick(() => { initTimeline(); initComparison() }))
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(8,12,18,0.2) 0%, rgba(8,12,18,0.85) 100%);
+  background:
+    linear-gradient(to bottom, rgba(8,12,18,0.16) 0%, rgba(8,12,18,0.82) 72%, rgba(8,12,18,0.92) 100%),
+    radial-gradient(circle at top left, rgba(201, 168, 76, 0.08), transparent 30%);
 }
 .back-btn {
   position: absolute;
   top: 24px;
   left: 32px;
-  background: rgba(10,14,20,0.6);
-  border: 1px solid var(--color-gold-dim);
-  color: var(--color-text-dim);
+  background: linear-gradient(180deg, rgba(17,23,33,0.74), rgba(10,14,20,0.6));
+  border: 1px solid rgba(122, 96, 48, 0.72);
+  color: #c5b79b;
   font-family: 'Noto Serif SC', serif;
   font-size: 14px;
   cursor: pointer;
@@ -540,7 +547,7 @@ onMounted(() => nextTick(() => { initTimeline(); initComparison() }))
 .hero-content {
   position: relative;
   z-index: 2;
-  padding: 0 48px 40px;
+  padding: 0 48px 36px;
 }
 .hero-name {
   font-size: 56px;
@@ -563,8 +570,10 @@ onMounted(() => nextTick(() => { initTimeline(); initComparison() }))
 .info-bar {
   display: flex;
   align-items: center;
-  background: rgba(10,14,20,0.95);
-  border-bottom: 1px solid var(--color-gold-dim);
+  background:
+    linear-gradient(180deg, rgba(16, 22, 32, 0.97), rgba(10,14,20,0.95)),
+    radial-gradient(circle at center, rgba(201,168,76,0.05), transparent 45%);
+  border-bottom: 1px solid rgba(122, 96, 48, 0.72);
   padding: 0 48px;
 }
 .info-item {
@@ -576,7 +585,7 @@ onMounted(() => nextTick(() => { initTimeline(); initComparison() }))
 .info-icon {
   width: 28px;
   height: 28px;
-  border: 1px solid var(--color-gold-dim);
+  border: 1px solid rgba(122, 96, 48, 0.78);
   color: var(--color-gold);
   font-size: 12px;
   font-family: 'Noto Serif SC', serif;
@@ -598,50 +607,63 @@ onMounted(() => nextTick(() => { initTimeline(); initComparison() }))
 .info-divider {
   width: 1px;
   height: 32px;
-  background: var(--color-gold-dim);
+  background: rgba(122, 96, 48, 0.72);
 }
 
 /* 涓讳綋 */
 .detail-body {
-  padding: 48px;
+  padding: 52px 48px 64px;
   display: flex;
   flex-direction: column;
-  gap: 56px;
-  background: var(--color-ink);
+  gap: 52px;
+  width: min(1460px, 100%);
+  margin: 0 auto;
+  background:
+    linear-gradient(180deg, rgba(10, 14, 20, 1) 0%, rgba(13, 17, 23, 1) 100%),
+    radial-gradient(circle at top, rgba(201, 168, 76, 0.035), transparent 30%);
 }
 
-.section {}
+.section {
+  padding: 0 2px;
+}
 .section-title {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 20px;
+  font-size: 21px;
   color: var(--color-gold-light);
   font-family: 'Noto Serif SC', serif;
-  letter-spacing: 0.12em;
-  margin-bottom: 24px;
+  letter-spacing: 0.14em;
+  margin-bottom: 22px;
+  text-shadow: 0 0 14px rgba(201, 168, 76, 0.16);
 }
 .section-title-bar {
   display: inline-block;
   width: 4px;
-  height: 20px;
-  background: var(--color-gold);
+  height: 22px;
+  background: linear-gradient(180deg, var(--color-gold-light), var(--color-gold));
+  box-shadow: 0 0 10px rgba(201, 168, 76, 0.18);
 }
 
 .description {
   font-size: 17px;
   line-height: 2;
   color: var(--color-text);
-  margin-bottom: 28px;
-  max-width: 800px;
+  margin-bottom: 22px;
+  max-width: 920px;
+  padding: 0 0 0 18px;
+  border-left: 2px solid rgba(201, 168, 76, 0.28);
 }
 
 /* 鏃堕棿杞?*/
 .timeline-wrap {
-  background: rgba(201,168,76,0.03);
-  border: 1px solid var(--color-gold-dim);
+  background:
+    linear-gradient(180deg, rgba(21, 26, 37, 0.9), rgba(12, 16, 28, 0.88)),
+    radial-gradient(circle at top right, rgba(201, 168, 76, 0.055), transparent 34%);
+  border: 1px solid rgba(122, 96, 48, 0.75);
   padding: 24px;
   margin-bottom: 16px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
 }
 .timeline-periods { display: none; }
 .timeline-period {
@@ -672,97 +694,125 @@ onMounted(() => nextTick(() => { initTimeline(); initComparison() }))
 }
 .timeline-period.active .period-name { color: var(--color-gold-light); }
 .period-years { font-size: 10px; color: var(--color-text-dim); opacity: 0.6; }
-.timeline-chart { width: 100%; height: 260px; }
+.timeline-chart { width: 100%; height: 270px; }
 
 .siblings-hint {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
+  padding: 12px 14px 0;
 }
 .hint-label { font-size: 12px; color: var(--color-text-dim); }
 .sibling-tag {
   font-size: 12px;
-  padding: 3px 10px;
+  padding: 4px 10px;
   border: 1px solid;
   font-family: 'Noto Serif SC', serif;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
+  background: rgba(255,255,255,0.015);
 }
-.sibling-tag:hover { opacity: 0.7; }
+.sibling-tag:hover { opacity: 0.82; transform: translateY(-1px); }
 
 /* 寤虹瓚鐗硅壊 */
 .features-grid {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
 }
 .feature-card {
   display: flex;
-  gap: 24px;
-  padding: 24px;
-  border: 1px solid var(--color-gold-dim);
-  background: rgba(201,168,76,0.03);
-  transition: border-color 0.3s;
+  gap: 18px;
+  padding: 22px 22px 20px;
+  border: 1px solid rgba(122, 96, 48, 0.74);
+  background:
+    linear-gradient(180deg, rgba(20, 25, 36, 0.82), rgba(14, 19, 30, 0.78)),
+    radial-gradient(circle at top right, rgba(201, 168, 76, 0.05), transparent 32%);
+  transition: border-color 0.3s, transform 0.28s, box-shadow 0.28s;
+  min-height: 172px;
 }
-.feature-card:hover { border-color: var(--color-gold); }
+.feature-card:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.16);
+}
 .feature-index {
-  font-size: 36px;
+  font-size: 38px;
   color: var(--color-gold-dim);
   font-family: 'Noto Serif SC', serif;
   line-height: 1;
-  min-width: 48px;
+  min-width: 54px;
+  padding-top: 2px;
 }
 .feature-content { flex: 1; }
 .feature-title {
-  font-size: 17px;
+  font-size: 20px;
   color: var(--color-gold-light);
   font-family: 'Noto Serif SC', serif;
   letter-spacing: 0.08em;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  line-height: 1.45;
 }
 .feature-body {
-  font-size: 15px;
+  font-size: 16px;
   color: var(--color-text);
-  line-height: 1.9;
+  line-height: 1.92;
 }
 
 /* 鐩稿叧钁椾綔宸ュ尃 */
+.related-grid {
+  padding: 18px 18px 16px;
+  border: 1px solid rgba(122, 96, 48, 0.38);
+  background:
+    linear-gradient(180deg, rgba(17, 22, 34, 0.72), rgba(11, 15, 25, 0.66)),
+    radial-gradient(circle at top right, rgba(201, 168, 76, 0.05), transparent 34%);
+}
 .related-sub-title {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--color-gold);
-  letter-spacing: 0.1em;
-  margin-bottom: 12px;
+  letter-spacing: 0.14em;
+  margin-bottom: 14px;
   font-family: 'Noto Serif SC', serif;
 }
 .related-cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
-  flex-wrap: wrap;
 }
 .related-card {
-  flex: 1;
-  min-width: 220px;
-  max-width: 340px;
-  padding: 18px 20px;
-  border: 1px solid var(--color-gold-dim);
-  background: rgba(201,168,76,0.03);
+  min-width: 0;
+  max-width: none;
+  padding: 18px 18px 16px;
+  border: 1px solid rgba(122, 96, 48, 0.72);
+  background:
+    linear-gradient(180deg, rgba(20, 25, 36, 0.82), rgba(14, 19, 30, 0.78)),
+    radial-gradient(circle at top right, rgba(201, 168, 76, 0.045), transparent 32%);
+  min-height: 148px;
+  transition: border-color 0.28s, transform 0.28s, box-shadow 0.28s;
+}
+.related-card:hover {
+  border-color: rgba(201, 168, 76, 0.82);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.16);
 }
 .related-card-title {
-  font-size: 16px;
+  font-size: 17px;
   color: var(--color-gold-light);
   font-family: 'Noto Serif SC', serif;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  line-height: 1.45;
 }
 .related-card-meta {
   font-size: 12px;
   color: var(--color-text-dim);
   margin-bottom: 10px;
+  letter-spacing: 0.04em;
 }
 .related-card-body {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-text);
-  line-height: 1.8;
+  line-height: 1.82;
 }
 .mt-6 { margin-top: 24px; }
 
@@ -770,20 +820,28 @@ onMounted(() => nextTick(() => { initTimeline(); initComparison() }))
 .comparison-note {
   font-size: 14px;
   color: var(--color-text-dim);
-  line-height: 1.8;
-  margin-bottom: 16px;
+  line-height: 1.82;
+  margin-bottom: 18px;
   font-family: 'Noto Serif SC', serif;
+  max-width: 860px;
+  padding-left: 14px;
+  border-left: 2px solid rgba(201, 168, 76, 0.18);
 }
 .comparison-chart {
   width: 100%;
-  background: rgba(201,168,76,0.03);
-  border: 1px solid var(--color-gold-dim);
+  background:
+    linear-gradient(180deg, rgba(21, 26, 37, 0.9), rgba(12, 16, 28, 0.88)),
+    radial-gradient(circle at top right, rgba(201, 168, 76, 0.055), transparent 34%);
+  border: 1px solid rgba(122, 96, 48, 0.75);
   margin-bottom: 12px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
 }
 .comparison-legend {
   display: flex;
   gap: 20px;
   align-items: center;
+  padding-left: 2px;
+  flex-wrap: wrap;
 }
 .legend-item {
   display: flex;
@@ -792,6 +850,9 @@ onMounted(() => nextTick(() => { initTimeline(); initComparison() }))
   font-size: 12px;
   color: var(--color-text-dim);
   font-family: 'Noto Serif SC', serif;
+  padding: 4px 8px;
+  border: 1px solid rgba(122, 96, 48, 0.28);
+  background: rgba(255,255,255,0.015);
 }
 .legend-dot {
   width: 10px;
@@ -808,6 +869,102 @@ onMounted(() => nextTick(() => { initTimeline(); initComparison() }))
   align-items: center;
   justify-content: center;
   color: var(--color-text-dim);
+}
+
+@media (max-width: 1100px) {
+  .hero {
+    height: 420px;
+  }
+
+  .hero-name {
+    font-size: 46px;
+  }
+
+  .info-bar {
+    flex-wrap: wrap;
+    padding: 0 32px;
+  }
+
+  .info-item {
+    padding: 14px 18px;
+  }
+
+  .info-divider {
+    display: none;
+  }
+
+  .detail-body {
+    padding: 40px 32px 56px;
+    gap: 44px;
+  }
+
+}
+
+@media (max-width: 720px) {
+  .hero {
+    height: 360px;
+  }
+
+  .back-btn {
+    top: 18px;
+    left: 18px;
+  }
+
+  .hero-content {
+    padding: 0 20px 24px;
+  }
+
+  .hero-name {
+    font-size: 34px;
+    letter-spacing: 0.12em;
+  }
+
+  .hero-tagline {
+    font-size: 14px;
+    max-width: none;
+  }
+
+  .info-bar {
+    padding: 8px 16px;
+    gap: 6px 0;
+  }
+
+  .info-item {
+    width: 50%;
+    padding: 10px 8px;
+  }
+
+  .detail-body {
+    padding: 28px 16px 40px;
+    gap: 36px;
+  }
+
+  .section-title {
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+  }
+
+  .description,
+  .comparison-note {
+    font-size: 15px;
+    line-height: 1.9;
+    padding-left: 12px;
+  }
+
+  .timeline-wrap,
+  .feature-card,
+  .related-grid {
+    padding: 16px;
+  }
+
+  .timeline-chart {
+    height: 250px;
+  }
+
+  .related-cards {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 

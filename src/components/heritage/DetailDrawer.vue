@@ -36,7 +36,6 @@ function handleChip(item) {
           <div>
             <div class="drawer-type">{{ payload.typeLabel }}</div>
             <div class="drawer-title">{{ payload.title }}</div>
-            <div class="drawer-subtitle" v-if="payload.subtitle">{{ payload.subtitle }}</div>
           </div>
           <button class="drawer-close" @click="emit('close')">关闭</button>
         </header>
@@ -137,12 +136,6 @@ function handleChip(item) {
   color: var(--color-gold-light);
   font-size: 30px;
   line-height: 1.35;
-}
-
-.drawer-subtitle {
-  margin-top: 6px;
-  color: var(--color-text-dim);
-  font-size: 16px;
 }
 
 .drawer-close {

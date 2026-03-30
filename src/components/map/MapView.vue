@@ -14,6 +14,8 @@ const mapContainer = ref(null)
 let map = null
 let markersLayer = null
 let provinceLayer = null
+let selectedMarker = null
+let selectedRing = null
 
 // 建筑类型颜色
 const typeColors = {
@@ -82,27 +84,28 @@ function createMarker(building) {
     icon = L.divIcon({
       className: '',
       html: `<div style="
-        width:40px;height:40px;
-        filter:drop-shadow(0 0 10px ${color}) drop-shadow(0 0 4px ${color});
+        width:44px;height:44px;
+        filter:drop-shadow(0 0 14px ${color}) drop-shadow(0 0 6px ${color}) drop-shadow(0 0 28px ${color}66);
         cursor:pointer;
       ">${svgHtml}</div>`,
-      iconSize: [40, 40],
-      iconAnchor: [20, 20],
+      iconSize: [44, 44],
+      iconAnchor: [22, 22],
     })
   } else {
-    // 普通建筑：小圆点
+    // 普通建筑：小圆点+光晕
     icon = L.divIcon({
       className: '',
       html: `<div style="
-        width:8px;height:8px;
+        width:12px;height:12px;
         border-radius:50%;
         background:${color};
-        opacity:0.6;
-        box-shadow:0 0 4px ${color}88;
+        opacity:0.85;
+        box-shadow:0 0 6px ${color}, 0 0 14px ${color}88, 0 0 24px ${color}44;
         cursor:pointer;
+        border: 1px solid ${color}cc;
       "></div>`,
-      iconSize: [8, 8],
-      iconAnchor: [4, 4],
+      iconSize: [12, 12],
+      iconAnchor: [6, 6],
     })
   }
 
@@ -110,17 +113,18 @@ function createMarker(building) {
 
   marker.bindTooltip(`
     <div style="
-      background: #161b22;
-      border: 1px solid ${color}88;
+      background: linear-gradient(180deg, rgba(19,24,33,0.98), rgba(13,17,23,0.96));
+      border: 1px solid ${color}66;
       color: #e6d5b8;
-      padding: 8px 12px;
+      padding: 10px 14px;
       font-family: 'Noto Serif SC', serif;
       font-size: 12px;
       border-radius: 2px;
       min-width: 120px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.34);
     ">
-      <div style="color:${color};font-weight:600;font-size:14px">${building.name}</div>
-      <div style="color:#8b8680;margin-top:3px">${building.dynasty} · ${building.type} · ${building.province}</div>
+      <div style="color:${color};font-weight:600;font-size:14px;letter-spacing:1px">${building.name}</div>
+      <div style="color:#9d9383;margin-top:4px">${building.dynasty} · ${building.type} · ${building.province}</div>
     </div>
   `, {
     className: 'custom-tooltip',
@@ -128,7 +132,24 @@ function createMarker(building) {
     offset: [0, -8],
   })
 
-  marker.on('click', () => emit('select-building', building))
+  marker.on('click', () => {
+    // 清除之前的选中态
+    if (selectedRing) { markersLayer.removeLayer(selectedRing); selectedRing = null }
+    // 加选中高亮环
+    const color = typeColors[building.type] || '#ffffff'
+    selectedRing = L.circleMarker([building.lat, building.lng], {
+      radius: building.isFeatured ? 28 : 16,
+      color: color,
+      weight: 2,
+      opacity: 0.8,
+      fillColor: color,
+      fillOpacity: 0.1,
+      className: 'marker-ring-pulse',
+    })
+    markersLayer.addLayer(selectedRing)
+    selectedMarker = marker
+    emit('select-building', building)
+  })
   return marker
 }
 
@@ -156,10 +177,10 @@ function initProvinceLayer(geojson) {
 
   provinceLayer = L.geoJSON(geojson, {
     style: {
-      fillColor: '#1a2535',
-      fillOpacity: 0.4,
-      color: '#c9a84c44',
-      weight: 1,
+      fillColor: '#0a0e1a',
+      fillOpacity: 0.15,
+      color: '#c9a84c88',
+      weight: 1.5,
     },
     onEachFeature(feature, layer) {
       const name = feature.properties.name
@@ -182,17 +203,18 @@ function initProvinceLayer(geojson) {
 
           layer.bindTooltip(`
             <div style="
-              background:#161b22;
-              border:1px solid #7a6030;
+              background:linear-gradient(180deg, rgba(19,24,33,0.98), rgba(13,17,23,0.96));
+              border:1px solid #8b6b3a;
               color:#e6d5b8;
-              padding:10px 14px;
+              padding:12px 14px;
               font-family:'Noto Serif SC',serif;
               font-size:12px;
               border-radius:2px;
               min-width:160px;
+              box-shadow:0 10px 24px rgba(0,0,0,0.34);
             ">
-              <div style="color:#e8c96d;font-size:14px;font-weight:600;margin-bottom:6px">${name}</div>
-              <div style="color:#8b8680">共 ${total} 处古建筑</div>
+              <div style="color:#e8c96d;font-size:14px;font-weight:600;margin-bottom:6px;letter-spacing:1px">${name}</div>
+              <div style="color:#9d9383">共 ${total} 处古建筑</div>
               ${rows}
             </div>
           `, { className: 'custom-tooltip', sticky: true }).openTooltip(e.latlng)
@@ -217,12 +239,20 @@ onMounted(async () => {
     maxZoom: 12,
   })
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+  // 天地图卫星影像底图
+  L.tileLayer('https://t{s}.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}&tk=261cff3451e5eff02ca8e6609de55ca5', {
     maxZoom: 18,
+    subdomains: ['0','1','2','3','4','5','6','7'],
+  }).addTo(map)
+
+  // 天地图影像标注层
+  L.tileLayer('https://t{s}.tianditu.gov.cn/cia_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cia&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}&tk=261cff3451e5eff02ca8e6609de55ca5', {
+    maxZoom: 18,
+    subdomains: ['0','1','2','3','4','5','6','7'],
   }).addTo(map)
 
   L.control.attribution({ position: 'bottomleft' })
-    .addAttribution('地图来源：<a href="https://www.tianditu.gov.cn/" target="_blank">国家地理信息公共服务平台天地图</a>')
+    .addAttribution('审图号：GS(2024)0650号 | 地图来源：<a href="https://www.tianditu.gov.cn/" target="_blank">国家地理信息公共服务平台天地图</a>')
     .addTo(map)
 
   L.control.zoom({ position: 'bottomright' }).addTo(map)
@@ -265,6 +295,7 @@ watch(() => props.buildings, () => {
 
 .leaflet-container {
   background: #0d1117 !important;
+  filter: saturate(0.92) contrast(1.02);
 }
 
 .custom-tooltip {
@@ -280,15 +311,42 @@ watch(() => props.buildings, () => {
 
 .leaflet-attribution-flag { display: none !important; }
 
+/* 选中标记脉冲动画 */
+:deep(.marker-ring-pulse) {
+  animation: ring-pulse 1.5s ease-out infinite;
+}
+@keyframes ring-pulse {
+  0% { stroke-opacity: 0.8; stroke-width: 2; }
+  50% { stroke-opacity: 0.4; stroke-width: 3; }
+  100% { stroke-opacity: 0.8; stroke-width: 2; }
+}
+
 .leaflet-control-attribution {
-  background: rgba(13,17,23,0.8) !important;
-  color: #8b8680 !important;
+  background: rgba(13,17,23,0.82) !important;
+  color: #9d9383 !important;
   font-size: 10px !important;
   border-top: 1px solid #7a6030 !important;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.16);
 }
 
 .leaflet-control-attribution a {
   color: #c9a84c !important;
+}
+
+.leaflet-control-zoom {
+  border: 1px solid rgba(122, 96, 48, 0.72) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.24) !important;
+}
+
+.leaflet-control-zoom a {
+  background: linear-gradient(180deg, rgba(19,24,33,0.98), rgba(13,17,23,0.96)) !important;
+  color: #c9a84c !important;
+  border-bottom: 1px solid rgba(122, 96, 48, 0.44) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: linear-gradient(180deg, rgba(28,34,46,0.98), rgba(16,21,32,0.96)) !important;
+  color: #e8c96d !important;
 }
 
 @keyframes pulse {
