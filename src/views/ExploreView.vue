@@ -27,6 +27,9 @@ let ccMapInstance = null
 let ccMapClickHandler = null
 let resizeHandler = null
 
+const BASE = import.meta.env.BASE_URL
+const assetUrl = (path) => path ? BASE + path.replace(/^\//, '') : ''
+
 const PERIODS = ['先秦两汉', '魏晋隋唐', '宋辽金元', '明清']
 const TYPES = ['皇宫', '官府', '民居', '桥梁']
 const typeColors = { '皇宫': '#e8c96d', '官府': '#00d4ff', '民居': '#81c784', '桥梁': '#ff8a65' }
@@ -371,7 +374,7 @@ async function initCCMap() {
   if (!ccMapRef.value || !topProvince.value) return
   if (ccMapInstance) ccMapInstance.dispose()
   ccMapInstance = echarts.init(ccMapRef.value, null, { renderer: 'svg' })
-  const geoData = await fetch('/china-provinces.json').then(r => r.json())
+  const geoData = await fetch(import.meta.env.BASE_URL + 'china-provinces.json').then(r => r.json())
   const provinceName = topProvince.value.province
   const feature = geoData.features.find(f =>
     normalizeProvinceName(f.properties.name).includes(normalizeProvinceName(provinceName))
@@ -929,7 +932,7 @@ function goToDetail(id) {
             <div class="bc-name text-glow-gold">{{ selectedBuilding.name }}</div>
             <template v-if="selectedBuilding.isFeatured">
               <div class="bc-image-wrap">
-                <img :src="selectedBuilding.imageUrl" :alt="selectedBuilding.name" class="bc-image"
+                <img :src="assetUrl(selectedBuilding.imageUrl)" :alt="selectedBuilding.name" class="bc-image"
                   @error="e => e.target.style.display='none'" />
               </div>
               <p class="bc-tagline" v-if="selectedBuilding.tagline">{{ selectedBuilding.tagline }}</p>

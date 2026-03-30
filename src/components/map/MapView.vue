@@ -259,7 +259,7 @@ onMounted(async () => {
 
   // 加载省份GeoJSON
   try {
-    const res = await fetch('/china-provinces.json')
+    const res = await fetch(import.meta.env.BASE_URL + 'china-provinces.json')
     const geojson = await res.json()
     initProvinceLayer(geojson)
   } catch(e) {
@@ -278,7 +278,7 @@ watch(() => props.buildings, () => {
   renderMarkers()
   if (provinceLayer && map) {
     provinceLayer.remove()
-    fetch('/china-provinces.json').then(r => r.json()).then(initProvinceLayer)
+    fetch(import.meta.env.BASE_URL + 'china-provinces.json').then(r => r.json()).then(initProvinceLayer)
   }
 }, { deep: true })
 </script>

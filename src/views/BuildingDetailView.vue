@@ -9,6 +9,8 @@ import * as echarts from 'echarts'
 
 const route = useRoute()
 const router = useRouter()
+const BASE = import.meta.env.BASE_URL
+const assetUrl = (path) => path ? BASE + path.replace(/^\//, '') : ''
 
 const building = computed(() => buildings.find(b => b.id === route.params.id))
 const relatedWorks = computed(() => works.filter(w => building.value?.relatedWorks?.includes(w.id)))
@@ -368,7 +370,7 @@ onMounted(() => nextTick(() => { initTimeline(); initComparison() }))
   <div class="detail-page" v-if="building">
 
     <!-- 鈶?椤堕儴鑻遍泟鍖?-->
-    <div class="hero" :style="building.imageUrl ? `background-image:url(${building.imageUrl})` : ''">
+    <div class="hero" :style="building.imageUrl ? `background-image:url(${assetUrl(building.imageUrl)})` : ''">
       <div class="hero-overlay" />
       <button class="back-btn" @click="router.back()">← 返回</button>
       <div class="hero-content">
