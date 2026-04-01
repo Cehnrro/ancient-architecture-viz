@@ -178,16 +178,16 @@ function initProvinceLayer(geojson) {
   provinceLayer = L.geoJSON(geojson, {
     style: {
       fillColor: '#0a0e1a',
-      fillOpacity: 0.15,
-      color: '#c9a84c88',
-      weight: 1.5,
+      fillOpacity: 0.4,
+      color: '#c9a84c44',
+      weight: 1,
     },
     onEachFeature(feature, layer) {
       const name = feature.properties.name
       const data = buildingsByProvince[name]
 
       layer.on('mouseover', function(e) {
-        this.setStyle({ fillOpacity: 0.65, color: '#c9a84c88', weight: 1.5 })
+        this.setStyle({ fillOpacity: 0.65, color: '#c9a84caa', weight: 2 })
 
         if (data) {
           const total = Object.values(data).flat().length
