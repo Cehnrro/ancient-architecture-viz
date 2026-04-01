@@ -30,6 +30,12 @@ let resizeHandler = null
 const BASE = import.meta.env.BASE_URL
 const assetUrl = (path) => path ? BASE + path.replace(/^\//, '') : ''
 
+// 预加载代表性建筑图片
+buildingsData.filter(b => b.isFeatured && b.imageUrl).forEach(b => {
+  const img = new Image()
+  img.src = assetUrl(b.imageUrl)
+})
+
 const PERIODS = ['先秦两汉', '魏晋隋唐', '宋辽金元', '明清']
 const TYPES = ['皇宫', '官府', '民居', '桥梁']
 const typeColors = { '皇宫': '#e8c96d', '官府': '#00d4ff', '民居': '#81c784', '桥梁': '#ff8a65' }
