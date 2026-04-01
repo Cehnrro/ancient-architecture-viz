@@ -37,7 +37,7 @@ export const buildings = [
         { name: '白金汉宫', value: 7.7, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b1.png',
+    imageUrl: '/images/buildings/b1.webp',
   },
   {
     id: 'b2',
@@ -75,7 +75,7 @@ export const buildings = [
         { name: '白金汉宫', value: 7.7, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b2.png',
+    imageUrl: '/images/buildings/b2.webp',
   },
   {
     id: 'b3',
@@ -115,7 +115,7 @@ export const buildings = [
         { name: '西递/宏村', value: [6, 8, 9, 10], isInternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b3.png',
+    imageUrl: '/images/buildings/b3.webp',
   },
   {
     id: 'b4',
@@ -150,7 +150,7 @@ export const buildings = [
         { name: '古埃及卡纳克神庙', value: -1550, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b4.png',
+    imageUrl: '/images/buildings/b4.webp',
   },
   // 魏晋隋唐
   {
@@ -187,7 +187,7 @@ export const buildings = [
         { name: '威尼斯叹息桥', value: 11, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b5.jpg',
+    imageUrl: '/images/buildings/b5.webp',
   },
   {
     id: 'b6',
@@ -225,7 +225,7 @@ export const buildings = [
         { name: '白金汉宫', value: 7.7, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b6.jpg',
+    imageUrl: '/images/buildings/b6.webp',
   },
   {
     id: 'b7',
@@ -259,7 +259,7 @@ export const buildings = [
         { name: '白金汉宫庭院', value: 3, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b7.png',
+    imageUrl: '/images/buildings/b7.webp',
   },
   {
     id: 'b8',
@@ -299,7 +299,7 @@ export const buildings = [
         { name: '西递/宏村', value: [6, 8, 9, 10], isInternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b8.png',
+    imageUrl: '/images/buildings/b8.webp',
   },
   // 宋辽金元
   {
@@ -336,7 +336,7 @@ export const buildings = [
         { name: '威尼斯叹息桥', value: 11, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b9.png',
+    imageUrl: '/images/buildings/b9.webp',
   },
   {
     id: 'b10',
@@ -372,7 +372,7 @@ export const buildings = [
         { name: '威尼斯叹息桥', value: 11, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b10.jpg',
+    imageUrl: '/images/buildings/b10.webp',
   },
   {
     id: 'b11',
@@ -406,7 +406,7 @@ export const buildings = [
         { name: '白金汉宫庭院', value: 3, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b11.jpg',
+    imageUrl: '/images/buildings/b11.webp',
   },
   {
     id: 'b12',
@@ -446,7 +446,7 @@ export const buildings = [
         { name: '西递/宏村', value: [6, 8, 9, 10], isInternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b12.jpeg',
+    imageUrl: '/images/buildings/b12.webp',
   },
   // 明清
   {
@@ -483,7 +483,7 @@ export const buildings = [
         { name: '白金汉宫', value: 7.7, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b13.jpg',
+    imageUrl: '/images/buildings/b13.webp',
   },
   {
     id: 'b14',
@@ -519,7 +519,7 @@ export const buildings = [
         { name: '白金汉宫', value: 7.7, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b14.jpg',
+    imageUrl: '/images/buildings/b14.webp',
   },
   {
     id: 'b15',
@@ -559,7 +559,7 @@ export const buildings = [
         { name: '西递/宏村', value: [6, 8, 9, 10], isInternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b15.jpg',
+    imageUrl: '/images/buildings/b15.webp',
   },
   {
     id: 'b16',
@@ -599,7 +599,7 @@ export const buildings = [
         { name: '西递/宏村', value: [6, 8, 9, 10], isCurrent: true },
       ]
     },
-    imageUrl: '/images/buildings/b16.jpg',
+    imageUrl: '/images/buildings/b16.webp',
   },
   {
     id: 'b17',
@@ -633,7 +633,7 @@ export const buildings = [
         { name: '白金汉宫庭院', value: 3, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b17.jpg',
+    imageUrl: '/images/buildings/b17.webp',
   },
   {
     id: 'b18',
@@ -669,7 +669,7 @@ export const buildings = [
         { name: '威尼斯叹息桥', value: 11, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b18.jpg',
+    imageUrl: '/images/buildings/b18.webp',
   },
   {
     id: 'b19',
@@ -703,7 +703,7 @@ export const buildings = [
         { name: '埃菲尔铁塔', value: 330, isExternal: true },
       ]
     },
-    imageUrl: '/images/buildings/b19.jpg',
+    imageUrl: '/images/buildings/b19.webp',
   },
 ]
 

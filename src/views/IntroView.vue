@@ -58,7 +58,7 @@ onMounted(() => {
 .bg-image {
   position: absolute;
   inset: -20px;
-  background: url('/images/open/intro-bg.png') center/cover no-repeat;
+  background: url('/images/open/intro-bg.webp') center/cover no-repeat;
   will-change: transform;
 }
 

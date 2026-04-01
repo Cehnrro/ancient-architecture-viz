@@ -11,7 +11,7 @@
     "lng": 108.822496,
     "isFeatured": true,
     "tagline": "六王毕，四海一，骊山北构而西折，直走咸阳。那座被杜牧以千古雄文祭奠的宫殿，以焚毁的灰烬换来了永恒的传说，探寻那段盛极而衰的帝国往事。",
-    "imageUrl": "/images/buildings/b1.png"
+    "imageUrl": "/images/buildings/b1.webp"
   },
   {
     "id": "b2",
@@ -25,7 +25,7 @@
     "lng": 108.857417,
     "isFeatured": true,
     "tagline": "汉家天子，坐拥未央。这座矗立长安二百年的皇家宫城，见证了文景之治的盛世华章，也承载了汉武帝北击匈奴的雄图壮志，走进那个奠定中华文明底色的时代。",
-    "imageUrl": "/images/buildings/b2.png"
+    "imageUrl": "/images/buildings/b2.webp"
   },
   {
     "id": "b3",
@@ -39,7 +39,7 @@
     "lng": 109.594809,
     "isFeatured": true,
     "tagline": "悬于山水之间，架木为居，远离尘嚣。两千年前南方先民以竹木为骨、以智慧为魂，在潮湿的土地上建起了与自然和谐共生的家园，那是中国民居最初的诗意。",
-    "imageUrl": "/images/buildings/b3.png"
+    "imageUrl": "/images/buildings/b3.webp"
   },
   {
     "id": "b4",
@@ -53,7 +53,7 @@
     "lng": 113.264592,
     "isFeatured": true,
     "tagline": "岭南深处，一座王城在地下沉睡了两千年。南越国的宫苑园林，将中原礼制与百越风情融为一体，那片精巧的曲流石渠，至今仍诉说着南国王朝的繁华旧梦。",
-    "imageUrl": "/images/buildings/b4.png"
+    "imageUrl": "/images/buildings/b4.webp"
   },
   {
     "id": "b5",
@@ -67,7 +67,7 @@
     "lng": 114.763275,
     "isFeatured": true,
     "tagline": "一拱跨千年，石桥卧长虹。隋代工匠李春以超越时代的智慧，将敞肩拱的秘密刻入石头，让这座桥在洨河上静静伫立了一千四百年，等待你来读懂它的语言。",
-    "imageUrl": "/images/buildings/b5.jpg"
+    "imageUrl": "/images/buildings/b5.webp"
   },
   {
     "id": "b6",
@@ -81,7 +81,7 @@
     "lng": 108.935344,
     "isFeatured": true,
     "tagline": "长安城北，大明宫的轮廓曾是整个东方世界最宏伟的天际线。盛唐的诗人们仰望含元殿的重檐，写下了无数传世华章，那是中华文明最自信、最开放的时代。",
-    "imageUrl": "/images/buildings/b6.jpg"
+    "imageUrl": "/images/buildings/b6.webp"
   },
   {
     "id": "b7",
@@ -95,7 +95,7 @@
     "lng": 112.466805,
     "isFeatured": true,
     "tagline": "武则天在此称帝，李白在此饮酒，洛阳城的官署街巷曾是天下权力与文化的交汇之地。那些消失在历史烟尘中的廊庑殿阁，依然在地下保存着盛世的记忆。",
-    "imageUrl": "/images/buildings/b7.png"
+    "imageUrl": "/images/buildings/b7.webp"
   },
   {
     "id": "b8",
@@ -109,7 +109,7 @@
     "lng": 89.062488,
     "isFeatured": true,
     "tagline": "两条河流交汇处，一座城市从黄土中生长。交河故城的居民不用一砖一瓦，直接向下挖掘出房间、街道与庭院，那是人类建筑史上最独特的生存智慧之一。",
-    "imageUrl": "/images/buildings/b8.png"
+    "imageUrl": "/images/buildings/b8.webp"
   },
   {
     "id": "b9",
@@ -123,7 +123,7 @@
     "lng": 118.547508,
     "isFeatured": true,
     "tagline": "海上有仙山，桥上有人家。宋代泉州人用五年时间，在浅海滩涂上铺就了这条长达两千余米的石桥，让天堑变通途，也让闽南的商贸文明走向了更远的海洋。",
-    "imageUrl": "/images/buildings/b9.png"
+    "imageUrl": "/images/buildings/b9.webp"
   },
   {
     "id": "b10",
@@ -137,7 +137,7 @@
     "lng": 116.212675,
     "isFeatured": true,
     "tagline": "马可·波罗曾赞叹它是世界上最美丽的桥，桥上的石狮各具神态，无一雷同。卢沟桥不仅是金代石拱桥的巅峰之作，更是近代中国历史转折的见证者。",
-    "imageUrl": "/images/buildings/b10.jpg"
+    "imageUrl": "/images/buildings/b10.webp"
   },
   {
     "id": "b11",
@@ -151,7 +151,7 @@
     "lng": 114.341037,
     "isFeatured": true,
     "tagline": "包青天升堂断案的地方，是北宋最高司法机构的所在。开封府的大堂之上，曾上演过无数关于公正与权力的故事，那是宋代士大夫精神最生动的建筑注脚。",
-    "imageUrl": "/images/buildings/b11.jpg"
+    "imageUrl": "/images/buildings/b11.webp"
   },
   {
     "id": "b12",
@@ -165,7 +165,7 @@
     "lng": 117.985008,
     "isFeatured": true,
     "tagline": "粉墙黛瓦马头墙，小桥流水人家。徽商的财富与乡愁，化作了皖南山水间最动人的建筑诗篇。那些精雕细琢的木雕砖雕，是工匠们用一生时光刻下的家族荣耀。",
-    "imageUrl": "/images/buildings/b12.jpeg"
+    "imageUrl": "/images/buildings/b12.webp"
   },
   {
     "id": "b13",
@@ -179,7 +179,7 @@
     "lng": 116.390803,
     "isFeatured": true,
     "tagline": "九千九百九十九间半，中轴线上的宫殿群以无与伦比的秩序感诠释着天下至尊。六百年风雨，二十四位皇帝，故宫不仅是一座建筑，更是中华文明的精神坐标。",
-    "imageUrl": "/images/buildings/b13.jpg"
+    "imageUrl": "/images/buildings/b13.webp"
   },
   {
     "id": "b14",
@@ -193,7 +193,7 @@
     "lng": 118.813177,
     "isFeatured": true,
     "tagline": "朱元璋在此建立大明，郑和从此出发下西洋。南京明故宫是北京故宫的蓝本与母体，那片沉寂的遗址之下，埋藏着大明王朝最初的雄心与梦想。",
-    "imageUrl": "/images/buildings/b14.jpg"
+    "imageUrl": "/images/buildings/b14.webp"
   },
   {
     "id": "b15",
@@ -207,7 +207,7 @@
     "lng": 112.322749,
     "isFeatured": true,
     "tagline": "走西口的晋商，将财富与乡愁一同筑入了这座深宅大院。六个院落，三百余间房屋，乔家大院以砖雕木雕的精美，诉说着一个商业家族跨越两个世纪的传奇。",
-    "imageUrl": "/images/buildings/b15.jpg"
+    "imageUrl": "/images/buildings/b15.webp"
   },
   {
     "id": "b16",
@@ -221,7 +221,7 @@
     "lng": 117.991607,
     "isFeatured": true,
     "tagline": "牛形村落枕山而眠，月沼如镜映照着粉墙黛瓦。宏村的先人以风水之学规划水系，以徽州工匠的巧手雕琢门楣，将一个村庄变成了流传千年的东方画卷。",
-    "imageUrl": "/images/buildings/b16.jpg"
+    "imageUrl": "/images/buildings/b16.webp"
   },
   {
     "id": "b17",
@@ -235,7 +235,7 @@
     "lng": 115.491157,
     "isFeatured": true,
     "tagline": "清代权力最重的封疆大吏，在这座朴素的衙门里处理着半个中国的军政事务。曾国藩、李鸿章都曾在此办公，那些厅堂与签押房，见证了晚清最后的挣扎与变革。",
-    "imageUrl": "/images/buildings/b17.jpg"
+    "imageUrl": "/images/buildings/b17.webp"
   },
   {
     "id": "b18",
@@ -249,7 +249,7 @@
     "lng": 116.618634,
     "isFeatured": true,
     "tagline": "十八梭船廿四洲，广济桥以浮桥连接石桥的奇特构造，成为中国桥梁史上的孤例。潮州人在韩江上建造的这座桥，既是交通要道，也是千年商贸文明的活化石。",
-    "imageUrl": "/images/buildings/b18.jpg"
+    "imageUrl": "/images/buildings/b18.webp"
   },
   {
     "id": "scraped_0",
@@ -1705,7 +1705,7 @@
     "isFeatured": true,
     "description": "始建于17世纪，后经清代至民国时期持续扩建修缮。 位于西藏自治区拉萨市。 宫殿建筑群依红山山体逐级上升，白宫与红宫分区明确，石木结构与厚墙小窗、高原适应性屋面做法相结合，集宫殿、寺院和灵塔殿于一体，形成极具辨识度的层叠式高原建筑景观。 布达拉宫是西藏地方政教合一历史体制和藏传佛教建筑艺术的杰出代表，对研究西藏政治史、宗教史、宫殿寺院复合建筑及高原营造技术具有极高价值。",
     "features": [],
-    "imageUrl": "/images/buildings/b19.jpg",
+    "imageUrl": "/images/buildings/b19.webp",
     "relatedWorks": [],
     "relatedPersons": [],
     "tagline": "雪域高原之上，一座红白相间的宫殿矗立于玛布日山，俯瞰拉萨城千年。布达拉宫既是藏传佛教的圣地，也是历代达赖喇嘛的冬宫，那层叠的殿宇之中，藏着雪域文明最深沉的信仰与荣光。"
@@ -5412,6 +5412,6 @@
     "lng": 91.117,
     "isFeatured": true,
     "tagline": "红山之巅，云端宫殿。海拔三千七百米，十三层依山叠建，藏汉交融的建筑奇迹在雪域高原矗立千年，俯瞰拉萨，见证一个民族的信仰与荣光。",
-    "imageUrl": "/images/buildings/b19.jpg"
+    "imageUrl": "/images/buildings/b19.webp"
   }
 ]
